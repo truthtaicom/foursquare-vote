@@ -38,9 +38,9 @@ export default function Home(props) {
 
   useEffect(() => {
     if (params.near) {
-      searchVenues({ ...params });
+      searchVenues && searchVenues({ ...params });
     }
-  }, [params]);
+  }, [params, searchVenues]);
 
   const renderContent = () => {
     if (loading) return <Loading center />;

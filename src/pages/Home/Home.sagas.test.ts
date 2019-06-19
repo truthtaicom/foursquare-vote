@@ -208,18 +208,18 @@ describe('sagas', () => {
   it('should watch Home Sagas', () => {
     const gen = mainSaga();
     expect(gen.next().value).toEqual(
-      takeLatest(SEARCH_VENUES_REQUEST, searchVenuesAction)
+      all([takeLatest(SEARCH_VENUES_REQUEST, searchVenuesAction)])
     );
   });
 
   it('should dispatch action "SEARCH_VENUES_SUCCESS" with result ', () => {
     const result = mockData;
-    (<jest.Mock>searchVenues).mockImplementationOnce(() => ({ ...result }));
+    (<jest.Mock>searchVenues).mockImplementationOnce(() => result);
 
     const gen = searchVenuesAction({ params: { a: 1 } });
     expect(gen.next().value).toEqual(call(searchVenues, { a: 1 }));
-    expect(gen.next({ ...result }).value).toEqual(
-      put(searchVenuesSuccess({ ...result }))
+    expect(gen.next(result).value).toEqual(
+      put(searchVenuesSuccess(result.response.venues))
     );
   });
 

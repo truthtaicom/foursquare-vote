@@ -10,7 +10,7 @@ describe('<SearchVenues /> spec', () => {
       <FormItem onSubmit={onSubmit} />
     );
 
-    const titleNode = getByPlaceholderText(/Title/i);
+    const titleNode = getByPlaceholderText(/Place/i);
     const submitButtonNode = getByText(/Search/i);
 
     titleNode.value = 'Bi';

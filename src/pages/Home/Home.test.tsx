@@ -5,38 +5,24 @@ import Home from './Home';
 afterEach(cleanup);
 
 describe('<Home> specs', () => {
-  test('can render with defaults', () => {
-    const getIncidentsMock = jest.fn();
-    const { getByText } = render(<Home getIncidents={getIncidentsMock} />);
-
-    expect(getIncidentsMock).toHaveBeenCalled();
-    expect(getByText('POLICE DEPARTMENT')).toBeTruthy();
-  });
-
-  test('can search with title & date start & date end', () => {
+  test('can search with title', () => {
     const getIncidentsMock = jest.fn();
     const paramsMock = {
-      incident_type: 'theft',
-      occurred_after: undefined,
-      occurred_before: undefined,
-      page: 1,
-      per_page: 10,
-      proximity: 'Berlin',
-      proximity_square: 30,
-      query: 'Bi'
+      client_id: 'GACECA3P0EWPIICCVKEDZ2PHBOPXO51D0LE2Z2OEQOHGXHGW',
+      client_secret: 'ZN4ZJD0DPCX011MGO0JOK0Y4Z4OVP5XPI2ND4LCE11BZCZGQ',
+      limit: 3,
+      near: 'Bi',
+      query: 'lunch',
+      v: 20170801
     };
     const { getByText, getByPlaceholderText } = render(
-      <Home getIncidents={getIncidentsMock} />
+      <Home searchVenues={getIncidentsMock} />
     );
 
-    const titleNode = getByPlaceholderText(/Title/i);
-    const fromDateNode = getByPlaceholderText(/From date/i);
-    const endDateNode = getByPlaceholderText(/End date/i);
+    const titleNode = getByPlaceholderText(/Place/i);
     const submitNode = getByText(/Search/i);
 
     titleNode.value = 'Bi';
-    fromDateNode.value = new Date().getTime();
-    endDateNode.value = new Date().getTime();
 
     fireEvent.click(submitNode);
 
