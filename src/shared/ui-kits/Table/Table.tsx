@@ -79,7 +79,9 @@ function Table(props: any) {
                 <Text isBlock isBold>
                   {elm.name}
                 </Text>
-                <Text isBlock>{elm.categories[0].name}</Text>
+                <Text isBlock>
+                  {elm.categories[0] && elm.categories[0].name}
+                </Text>
               </StyledHeadCell>
             ))}
           </tr>

@@ -23,25 +23,27 @@ export default function Home(props) {
     client_id: process.env.REACT_APP_CLIENT_ID,
     client_secret: process.env.REACT_APP_CLIENT_SECRET,
     query: 'lunch',
-    near: 'Berlin',
+    near: null,
     v: 20170801,
     limit: 3
   });
 
   const onSearch = useCallback(
-    (values, resetValues) => {
-      setParams(p => ({ ...p, ...values }));
+    ({ query }, resetValues) => {
+      setParams(p => ({ ...p, near: query }));
       resetValues();
     },
     [setParams]
   );
 
   useEffect(() => {
-    searchVenues({ ...params });
-  }, [searchVenues, params]);
+    if (params.near) {
+      searchVenues({ ...params });
+    }
+  }, [params]);
 
   const renderContent = () => {
-    if (loading || !data) return <Loading center />;
+    if (loading) return <Loading center />;
     if (hasData) return <Table data={data} />;
     if (error) return <Alert color="danger">{error.message}</Alert>;
     if (emptyData) return <Alert color="warning">Not found !</Alert>;
