@@ -5,6 +5,7 @@ import Loading from '../../shared/ui-kits/Loading/Loading';
 import styled from 'styled-components';
 import { Alert } from '../../shared/ui-kits/Alert';
 import { Table } from '../../shared/ui-kits/Table';
+import { Text } from '../../shared/ui-kits/Text';
 
 const StyledHome = styled.div`
   display: grid;
@@ -51,6 +52,9 @@ export default function Home(props) {
 
   return (
     <Layout>
+      <Text size={20} isBold isBlock>
+        Restaurant Vote
+      </Text>
       <StyledHome>
         <SearchVenues onSubmit={onSearch} />
         {renderContent()}

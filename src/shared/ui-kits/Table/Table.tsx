@@ -4,6 +4,8 @@ import * as Colors from '../Variables/Colors';
 import { Text } from '../Text';
 import Input from '../Input/Input';
 import { Button } from '../Button';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { Icon } from '../Icon';
 
 const StyledTable = styled.table`
   border: 1px solid #dee2e6;
@@ -24,8 +26,13 @@ const StyledHeadCell = styled.th<any>`
 
 const StyledCell = styled.td<any>`
   background: ${({ isSelected }) =>
-    isSelected ? Colors.primary : Colors.white};
-  border: 1px solid #ddd;
+    isSelected ? Colors.warning : Colors.white};
+  border: 1px solid ${Colors.grey};
+  color: ${Colors.white};
+
+  &:first-child {
+    padding: 1rem;
+  }
 `;
 
 const StyledParticipantCell = styled(StyledHeadCell)`
@@ -99,13 +106,18 @@ function Table(props: any) {
                 <StyledCell>
                   <Input defaultValue={participant.name} />
                 </StyledCell>
-                {props.data.map((elm: any, venueIdx: number) => (
-                  <StyledCell
-                    key={elm.id}
-                    isSelected={participant.selectedIdx === venueIdx}
-                    onClick={() => onSelectVenue(participantIdx, venueIdx)}
-                  />
-                ))}
+                {props.data.map((elm: any, venueIdx: number) => {
+                  const isSelected = participant.selectedIdx === venueIdx;
+                  return (
+                    <StyledCell
+                      key={elm.id}
+                      isSelected={isSelected}
+                      onClick={() => onSelectVenue(participantIdx, venueIdx)}
+                    >
+                      {isSelected && <Icon icon={faCheckCircle} size="3x" />}
+                    </StyledCell>
+                  );
+                })}
               </tr>
             ))}
         </tbody>
