@@ -15,6 +15,10 @@
 
 In the project directory, you can run:
 
+## Live demo:
+
+Homepage: [https://resvote.netlify.com/](https://resvote.netlify.com/)
+
 ### `npm run storybook`
 
 Access Storybook interface.<br> Open http://localhost:6006 to view it in the
