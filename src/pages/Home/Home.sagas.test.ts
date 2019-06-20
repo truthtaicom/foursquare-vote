@@ -2,11 +2,11 @@ jest.mock('../../shared/services/venues', () => ({
   searchVenues: jest.fn()
 }));
 
-import { takeLatest, call, put, all } from 'redux-saga/effects';
+import { takeLatest, call, put, all, fork } from 'redux-saga/effects';
 import { searchVenues } from '../../shared/services/venues';
 import { searchVenuesSuccess, searchVenuesFailure } from './Home.action';
 import { SEARCH_VENUES_REQUEST } from './Home.actionTypes';
-import { searchVenuesAction } from './Home.sagas';
+import { searchVenuesAction, homeSaga } from './Home.sagas';
 import { mainSaga } from '../../App.store';
 
 beforeEach(() => {
@@ -207,9 +207,7 @@ describe('sagas', () => {
 
   it('should watch Home Sagas', () => {
     const gen = mainSaga();
-    expect(gen.next().value).toEqual(
-      all([takeLatest(SEARCH_VENUES_REQUEST, searchVenuesAction)])
-    );
+    expect(gen.next().value).toEqual(all([fork(homeSaga)]));
   });
 
   it('should dispatch action "SEARCH_VENUES_SUCCESS" with result ', () => {

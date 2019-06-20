@@ -61,7 +61,12 @@ function Table(props: any) {
       }, {});
 
     const votes = Object.keys(list).sort((a: any, b: any) => list[b] - list[a]);
-    setVoted(parseInt(votes[0], 10));
+
+    if (list[votes[0]] > list[votes[1]]) {
+      setVoted(parseInt(votes[0], 10));
+    } else {
+      setVoted(null);
+    }
   }, [participants]);
 
   return (
